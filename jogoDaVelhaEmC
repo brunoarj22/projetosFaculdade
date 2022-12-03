@@ -1,0 +1,133 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+	int linha, coluna, jogador, ganhou, opcao;
+	char jogo[3][3]= {{'*', '*', '*'},
+	               	 {'*', '*', '*'},
+		             {'*', '*', '*'}};
+	int jogando = 1;
+	int jogadas = 0;
+
+
+	while(jogando) {
+
+		if (jogadas == 0) {
+			jogador = 1;
+			ganhou = 0;}
+
+		printf("\n\n\t 0 1 2\n\n");
+		for(linha = 0; linha < 3; linha++) {
+			for(coluna = 0; coluna < 3; coluna++) {
+				if(coluna == 0)
+					printf("\t");
+				printf("%c", jogo[linha][coluna]);
+				if(coluna < 2)
+					printf("|");
+				if(coluna == 2)
+					printf("  %d", linha);
+			}
+			if(linha < 2)
+				printf("\n \t -----------");
+			printf("\n");
+
+		}
+
+		do{
+			printf(" \n JOGADOR 1 = 0\n JOGADOR 2 = X\n");
+			printf("\n JOGAdor %d: Digite a linha e a coluna que deseja jogar: ", jogador);
+			scanf("%d%d", &linha, &coluna);
+            fflush(stdout); 
+		}while(linha < 0 || linha > 2 || coluna < 0 || coluna > 2 || jogo[linha][coluna]!= '*' );
+        
+        
+        
+		if(jogador ==1){
+			jogo[linha][coluna] = 'O';
+			jogador++;
+		}else {
+			jogo[linha][coluna] = 'X';
+			jogador = 1;
+		}
+		jogadas++;
+		
+
+
+		if(jogo[0][0] == 'O' && jogo[0][1] =='O' && jogo[0][2] == 'O' ||
+		        jogo[1][0] == 'O' && jogo[1][1] =='O' && jogo[1][2] == 'O' ||
+		        jogo[2][0] == 'O' && jogo[2][1] =='O' && jogo[2][2] == 'O') {
+
+			printf("\n Parabens! O jogador 1 venceu por linha!\n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][0] == 'X' && jogo[0][1] =='X' && jogo[0][2] == 'X' ||
+		        jogo[1][0] == 'X' && jogo[1][1] =='X' && jogo[1][2] == 'X' ||
+		        jogo[2][0] == 'X' && jogo[2][1] =='X' && jogo[2][2] == 'X') {
+
+			printf("\n Parabens! O jogador 2 venceu por linha!\n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][0] == 'O' && jogo[2][0] =='O' && jogo[2][0] == 'O' ||
+		        jogo[0][1] == 'O' && jogo[1][1] =='O' && jogo[2][1] == 'O' ||
+		        jogo[0][2] == 'O' && jogo[1][2] =='O' && jogo[2][2] == 'O') {
+
+			printf("\n Parabens! O jogador 1 venceu por coluna!\n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][0] == 'X' && jogo[2][0] =='X' && jogo[2][0] == 'X' ||
+		        jogo[0][1] == 'X' && jogo[1][1] =='X' && jogo[2][1] == 'X' ||
+		        jogo[0][2] == 'X' && jogo[1][2] =='X' && jogo[2][2] == 'X') {
+
+			printf("\n Parabens! O jogador 2 venceu por coluna!\n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][0] == 'O' && jogo[1][1] == '0' && jogo[2][2] == 'O') {
+			printf("\n Parabens! O jogador 1 venceu na diagonal! \n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][0] == 'X' && jogo[1][1] == 'X' && jogo[2][2] == 'X') {
+			printf("\n Parabens! O jogador 2 venceu na diagonal! \n");
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][2] == 'O' && jogo[1][1] == '0' && jogo[2][0] == 'O') {
+			
+			ganhou = 1;
+			break;
+		}
+
+		if(jogo[0][2] == 'X' && jogo[1][1] == 'X' && jogo[2][0] == 'X') {
+			printf("\n Parabens! O jogador 2 venceu na diagonal  \n");
+			ganhou = 1;
+			break;
+		}
+
+		if (jogadas >= 9) {
+			
+			printf("\n O jogo finalizou sem ganhador!\n");
+			printf("\n Digite 1 para jogar novamente e 0 para terminar: \n");
+			scanf("%d", &opcao);
+
+			if(opcao == 1) {
+				jogadas = 0;
+			}
+		}
+
+		}
+
+
+return 0;
+
+}
